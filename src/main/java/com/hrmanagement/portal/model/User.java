@@ -19,7 +19,7 @@ public class User {
 	private String userId;
 
 	@JsonIgnore
-	@OneToOne(mappedBy = "userId")
+	@OneToOne(mappedBy = "refUserId")
 	private Employee employee;
 
 	@Column(name = "user_password")

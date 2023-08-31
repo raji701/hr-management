@@ -25,8 +25,12 @@ public class Employee {
 
 	@OneToOne
 	@JsonIgnore
-	@JoinColumn(name = "user_id", unique = true, nullable = false)
-	private User userId;
+	@JoinColumn(name = "user_id", unique = true, nullable = false, insertable=false,updatable=false)
+	private User refUserId;
+	
+	
+	@Column(name="user_id",unique= true , nullable= false)
+	private String userId;
 
 	@Column(name = "first_name")
 	private String firstName;
@@ -46,9 +50,13 @@ public class Employee {
 	@Column(name = "salary")
 	private Double salary;
 
+	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name = "department_id")
+	@JoinColumn(name = "department_id",insertable=false,updatable=false)
 	private Department department;
+	
+	@Column(name = "department_id")
+	private int departmentId;
 
 	@Column(name = "employment_type", length = 20)
 	private String employmentType;
@@ -109,13 +117,6 @@ public class Employee {
 		this.employeeId = employeeId;
 	}
 
-	public User getUserId() {
-		return userId;
-	}
-
-	public void setUserId(User userId) {
-		this.userId = userId;
-	}
 
 	public String getFirstName() {
 		return firstName;
@@ -284,6 +285,39 @@ public class Employee {
 	public void setEmployeeRolesList(List<EmployeeRole> employeeRolesList) {
 		this.employeeRolesList = employeeRolesList;
 	}
+
+
+	public User getRefUserId() {
+		return refUserId;
+	}
+
+	public void setRefUserId(User refUserId) {
+		this.refUserId = refUserId;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public int getDepartmentId() {
+		return departmentId;
+	}
+
+	public void setDepartmentId(int departmentId) {
+		this.departmentId = departmentId;
+	}
+
+	
+
+	
+
+	
+
+	
 
 	
 
