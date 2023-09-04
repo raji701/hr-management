@@ -5,7 +5,10 @@ package com.hrmanagement.portal.dto;
 public class DepartmentRequestDto {
 
 	private Integer id;
+	
 	private String name;
+	
+	
 	
 
 	public String getName() {
