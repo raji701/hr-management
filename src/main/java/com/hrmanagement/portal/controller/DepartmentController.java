@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.hrmanagement.portal.ResponseDto.ApiErrorResponse;
+import com.hrmanagement.portal.ResponseDto.ApiResponse;
 import com.hrmanagement.portal.ResponseDto.ResponseHandler;
 import com.hrmanagement.portal.dto.DepartmentRequestDto;
 import com.hrmanagement.portal.model.Department;
@@ -34,13 +36,10 @@ public class DepartmentController {
 	 * @return
 	 */
 	@GetMapping(value = "/all")
-	public ResponseEntity<Object> Get() {
-		try {
-			List<DepartmentRequestDto> result = departmentService.getAllDepartments();
-			return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
-		} catch (Exception e) {
-			return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
-		}
+	public ResponseEntity<ApiResponse<List<DepartmentRequestDto>>> Get() {
+
+		List<DepartmentRequestDto> departmentDto = departmentService.getAllDepartments();
+		return ResponseEntity.ok(new ApiResponse<>(departmentDto, null));
 	}
 
 	/**
@@ -50,10 +49,9 @@ public class DepartmentController {
 	 * @return
 	 */
 	@GetMapping("/{id}")
-	public ResponseEntity<Object> getUserById(@PathVariable Integer id) {
-
-		Department department = departmentService.departmentById(id);
-		return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, department);
+	public ResponseEntity<ApiResponse<DepartmentRequestDto>> getDepartmentById(@PathVariable Integer id) {
+		DepartmentRequestDto departmentDto = departmentService.getDepartmentById(id);
+		return ResponseEntity.ok(new ApiResponse<>(departmentDto, null));
 	}
 
 	/**
@@ -63,13 +61,10 @@ public class DepartmentController {
 	 * @return
 	 */
 	@PostMapping("/new")
-	public ResponseEntity<Object> newDepartment(@RequestBody DepartmentRequestDto postRequest) {
-		try {
-			Department department = departmentService.createDepartment(postRequest);
-			return ResponseHandler.generateResponse("Successfully posted data!", HttpStatus.CREATED, department);
-		} catch (ResponseStatusException e) {
-			return ResponseEntity.status(e.getStatusCode()).body(e.getMessage());
-		}
+	public ResponseEntity<ApiResponse<DepartmentRequestDto>> newDepartment(
+			@RequestBody DepartmentRequestDto postRequest) {
+		DepartmentRequestDto departmentDto = departmentService.createDepartment(postRequest);
+		return ResponseEntity.ok(new ApiResponse<>(departmentDto, null));
 	}
 
 	/**
@@ -80,13 +75,10 @@ public class DepartmentController {
 	 * @return
 	 */
 	@PutMapping("/update/{id}")
-	public ResponseEntity<Object> updateById(Integer id, @RequestBody DepartmentRequestDto updateRequest) {
-		try {
-			Department department = departmentService.updateDepartment(id, updateRequest);
-			return ResponseHandler.generateResponse("Successfully updated data!", HttpStatus.CREATED, department);
-		} catch (ResponseStatusException e) {
-			return ResponseEntity.status(e.getStatusCode()).body(e.getMessage());
-		}
+	public ResponseEntity<ApiResponse<DepartmentRequestDto>> updateDepartment(@PathVariable Integer id,
+			@RequestBody DepartmentRequestDto updatedDepartment) {
+		DepartmentRequestDto departmentDto = departmentService.updateDepartment(id, updatedDepartment);
+		return ResponseEntity.ok(new ApiResponse<>(departmentDto, null));
 	}
 
 	/**
@@ -106,22 +98,29 @@ public class DepartmentController {
 	}
 
 	/**
-	 * 6. sorting feilds
+	 * 6. sorting fields
 	 * 
 	 * @param feild
 	 * @return
 	 */
 	@GetMapping("/sort/{feild}")
-	public ResponseEntity<Object> getDepartmentsWithSort(@PathVariable String feild) {
-		 List<Department> department = departmentService.findDepartmentWithSorting(feild);
-		 
-	return ResponseHandler.generateResponse("Successfully retreived data!", HttpStatus.OK, department);
+	public ResponseEntity<ApiResponse<List<DepartmentRequestDto>>> getDepartmentsWithSort(@PathVariable String feild) {
+		List<DepartmentRequestDto> departmentDto = departmentService.findDepartmentWithSorting(feild);
+		return ResponseEntity.ok(new ApiResponse<>(departmentDto, null));
 
 	}
 
+	/**
+	 * 7. Department Pages
+	 * 
+	 * @param offset
+	 * @param pagesize
+	 * @return
+	 */
 	@GetMapping("/pagination/{offset}/{pagesize}")
-	public ResponseEntity<Object> getProductWithPagination(@PathVariable int offset, @PathVariable int pagesize) {
-		Page<Department> department = departmentService.findDepartmentwithPagination(offset, pagesize);
-		return ResponseHandler.generateResponse("Successfully retreived data!", HttpStatus.OK, department);
+	public ResponseEntity<ApiResponse<Page<DepartmentRequestDto>>> getProductWithPagination(@PathVariable int offset,
+			@PathVariable int pagesize) {
+		Page<DepartmentRequestDto> departmentPages = departmentService.findDepartmentwithPagination(offset, pagesize);
+		return ResponseEntity.ok(new ApiResponse<>(departmentPages, null));
 	}
 }
