@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,12 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
-
-import com.hrmanagement.portal.ResponseDto.ApiErrorResponse;
 import com.hrmanagement.portal.ResponseDto.ApiResponse;
-import com.hrmanagement.portal.ResponseDto.ResponseHandler;
 import com.hrmanagement.portal.dto.DepartmentRequestDto;
-import com.hrmanagement.portal.model.Department;
 import com.hrmanagement.portal.service.DepartmentService;
 
 @RestController
@@ -35,7 +30,7 @@ public class DepartmentController {
 	 * 
 	 * @return
 	 */
-	@GetMapping(value = "/all")
+	@GetMapping
 	public ResponseEntity<ApiResponse<List<DepartmentRequestDto>>> Get() {
 
 		List<DepartmentRequestDto> departmentDto = departmentService.getAllDepartments();
@@ -74,7 +69,7 @@ public class DepartmentController {
 	 * @param updateRequest
 	 * @return
 	 */
-	@PutMapping("/update/{id}")
+	@PutMapping("/{id}")
 	public ResponseEntity<ApiResponse<DepartmentRequestDto>> updateDepartment(@PathVariable Integer id,
 			@RequestBody DepartmentRequestDto updatedDepartment) {
 		DepartmentRequestDto departmentDto = departmentService.updateDepartment(id, updatedDepartment);
@@ -103,7 +98,7 @@ public class DepartmentController {
 	 * @param feild
 	 * @return
 	 */
-	@GetMapping("/sort/{feild}")
+	@GetMapping("/{feild}")
 	public ResponseEntity<ApiResponse<List<DepartmentRequestDto>>> getDepartmentsWithSort(@PathVariable String feild) {
 		List<DepartmentRequestDto> departmentDto = departmentService.findDepartmentWithSorting(feild);
 		return ResponseEntity.ok(new ApiResponse<>(departmentDto, null));
@@ -117,7 +112,7 @@ public class DepartmentController {
 	 * @param pagesize
 	 * @return
 	 */
-	@GetMapping("/pagination/{offset}/{pagesize}")
+	@GetMapping("/{offset}/{pagesize}")
 	public ResponseEntity<ApiResponse<Page<DepartmentRequestDto>>> getProductWithPagination(@PathVariable int offset,
 			@PathVariable int pagesize) {
 		Page<DepartmentRequestDto> departmentPages = departmentService.findDepartmentwithPagination(offset, pagesize);
