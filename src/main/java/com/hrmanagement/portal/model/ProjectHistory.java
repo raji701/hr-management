@@ -9,23 +9,33 @@ import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "project_history")
 public class ProjectHistory {
 
+	@JsonIgnore
 	@EmbeddedId
 	private ProjectHistoryId id;
 
+	@Column(name = "employee_id",insertable = false, updatable = false)
+	private Integer employeeId;
+
+	@Column(name = "project_id",insertable = false, updatable = false)
+	private Integer projectId;
+
 	@ManyToOne
 	@JsonIgnore
-	@JoinColumn(name = "employee_id", insertable = false, updatable = false)
+	@MapsId("employee_id")
+	@JoinColumn(name = "employee_id")
 	private Employee employee;
 
 	@ManyToOne
 	@JsonIgnore
-	@JoinColumn(name = "project_id", insertable = false, updatable = false)
+	@MapsId("project_id")
+	@JoinColumn(name = "project_id")
 	private ProjectDetails projectDetails;
 
 	@Column(name = "created_at")
@@ -36,8 +46,8 @@ public class ProjectHistory {
 
 	@Column(name = "modified_at")
 	private LocalDateTime modifiedAt;
-	
-	@Column(name="modified_by")
+
+	@Column(name = "modified_by")
 	private int modifiedBy;
 
 	public ProjectHistoryId getId() {
@@ -52,16 +62,8 @@ public class ProjectHistory {
 		return employee;
 	}
 
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
-	}
-
 	public ProjectDetails getProjectDetails() {
 		return projectDetails;
-	}
-
-	public void setProjectDetails(ProjectDetails projectDetails) {
-		this.projectDetails = projectDetails;
 	}
 
 	public LocalDateTime getCreatedAt() {
@@ -96,5 +98,20 @@ public class ProjectHistory {
 		this.modifiedBy = modifiedBy;
 	}
 
-	
+	public Integer getEmployeeId() {
+		return employeeId;
+	}
+
+	public void setEmployeeId(Integer employeeId) {
+		this.employeeId = employeeId;
+	}
+
+	public Integer getProjectId() {
+		return projectId;
+	}
+
+	public void setProjectId(Integer projectId) {
+		this.projectId = projectId;
+	}
+
 }

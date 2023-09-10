@@ -98,7 +98,7 @@ public class DepartmentController {
 	 * @param feild
 	 * @return
 	 */
-	@GetMapping("/{feild}")
+	@GetMapping("/sort/{feild}")
 	public ResponseEntity<ApiResponse<List<DepartmentRequestDto>>> getDepartmentsWithSort(@PathVariable String feild) {
 		List<DepartmentRequestDto> departmentDto = departmentService.findDepartmentWithSorting(feild);
 		return ResponseEntity.ok(new ApiResponse<>(departmentDto, null));

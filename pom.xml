@@ -46,10 +46,11 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!--<dependency>
+        <!-- liquibase-->
+		<dependency>
 			<groupId>org.liquibase</groupId>
 			<artifactId>liquibase-core</artifactId>
-		</dependency>-->
+		</dependency>
 
 		<dependency>
 			<groupId>com.microsoft.sqlserver</groupId>

@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -14,6 +16,10 @@ import jakarta.persistence.Table;
 @Table(name = "users")
 public class User {
 
+	public enum Status{
+		de_activated , activate
+	}
+	
 	@Id
 	@Column(name = "user_id")
 	private String userId;
@@ -23,7 +29,10 @@ public class User {
 	private Employee employee;
 
 	@Column(name = "user_password")
-	private String pwd;
+	private String passWord;
+	
+	@Enumerated(EnumType.ORDINAL)
+	private Status status;
 
 	@Column(name = "created_at")
 	private LocalDate createdAt;
@@ -51,14 +60,6 @@ public class User {
 
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
-	}
-
-	public String getPwd() {
-		return pwd;
-	}
-
-	public void setPwd(String pwd) {
-		this.pwd = pwd;
 	}
 
 	public LocalDate getCreatedAt() {
@@ -92,5 +93,22 @@ public class User {
 	public void setModifiedBy(int modifiedBy) {
 		this.modifiedBy = modifiedBy;
 	}
+
+	public String getPassWord() {
+		return passWord;
+	}
+
+	public void setPassWord(String passWord) {
+		this.passWord = passWord;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
 
 }

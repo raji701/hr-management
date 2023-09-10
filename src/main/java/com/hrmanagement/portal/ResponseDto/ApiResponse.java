@@ -4,7 +4,7 @@ import java.util.Map;
 public class ApiResponse<T> {
     private T data;
     private Map<String, Object> meta;
-    private ApiErrorResponse error;
+   
 
     public ApiResponse() {
     }
@@ -12,10 +12,6 @@ public class ApiResponse<T> {
     public ApiResponse(T data, Map<String, Object> meta) {
         this.data = data;
         this.meta = meta;
-    }
-
-    public ApiResponse(ApiErrorResponse error) {
-        this.error = error;
     }
 
     public T getData() {
@@ -34,11 +30,5 @@ public class ApiResponse<T> {
         this.meta = meta;
     }
 
-	public ApiErrorResponse getError() {
-		return error;
-	}
-
-	public void setError(ApiErrorResponse error) {
-		this.error = error;
-	}
+	
 }
