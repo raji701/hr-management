@@ -15,9 +15,5 @@ public class SkillsController {
 	@Autowired
 	private SkillsService skillsService;
 	
-	@GetMapping("/skills")
-	public List<Skills> listOfSkills()
-	{
-		return skillsService.skills();
-	}
+	
 }

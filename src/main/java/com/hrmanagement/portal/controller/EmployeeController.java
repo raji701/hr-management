@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hrmanagement.portal.ResponseDto.ApiResponse;
+import com.hrmanagement.portal.dto.BankDetailsDto;
 import com.hrmanagement.portal.dto.EmployeeDto;
 import com.hrmanagement.portal.model.PersonalDetails.Gender;
 import com.hrmanagement.portal.service.EmployeeService;
@@ -96,4 +98,16 @@ public class EmployeeController {
 		return ResponseEntity.ok(new ApiResponse<>(employeeDtolist, meta));
 	}
 
+	@GetMapping("/pagination/{offset}/{pageSize}")
+	public ResponseEntity<ApiResponse<List<EmployeeDto>>> getProductWithPagination(@PathVariable int offset,
+			@PathVariable int pageSize) {
+		List<EmployeeDto> employeePageList = employeeService.findEmployeeWithPagination(offset, pageSize);
+		int pageCount = (int) Math.ceil((double) employeePageList.size() / pageSize);
+		Map<String,Object> meta = new LinkedHashMap<>();
+		meta.put("PageNo",offset);
+		meta.put("PageSize", pageSize);
+		meta.put("pageCount", pageCount);
+		meta.put("recordCount", employeePageList.size());
+		return ResponseEntity.ok(new ApiResponse<>(employeePageList, meta));
+	}
 }

@@ -42,10 +42,6 @@ public class Position {
 	@Column(name = "position_name")
 	private PositionName positionName;
 	
-//	@Column(name = "position_name")
-//    private int positionName;
-
-	
 	@Column(name = "created_at")
 	private LocalDateTime createdAt;
 

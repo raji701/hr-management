@@ -6,10 +6,14 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.hrmanagement.portal.customexception.ResourceNotFoundException;
+import com.hrmanagement.portal.dto.BankDetailsDto;
 import com.hrmanagement.portal.dto.EmployeeDto;
+import com.hrmanagement.portal.model.BankDetails;
 import com.hrmanagement.portal.model.Department;
 import com.hrmanagement.portal.model.Employee;
 import com.hrmanagement.portal.model.PersonalDetails.Gender;
@@ -88,4 +92,22 @@ public class EmployeeService {
 		return employeeDtoList;
 	}
 
+	// 7. Pagination
+//		public Page<EmployeeDto> findEmployeeWithPagination(int offset, int pageSize) {
+//			Page<Employee> pageOfEmployees = employeeRepo.findAll(PageRequest.of(offset, pageSize));
+//			List<EmployeeDto> dtoList = pageOfEmployees.getContent().stream()
+//					.map(employee -> mapper.map(employee, EmployeeDto.class)).collect(Collectors.toList());
+//			return pageOfEmployees.map(bankDetails -> mapper.map(bankDetails, EmployeeDto.class));
+//
+//		}
+	
+	 //7. Pagination
+	public List<EmployeeDto> findEmployeeWithPagination(int offset, int pageSize) {
+		Page<Employee> pageOfEmployees = employeeRepo.findAll(PageRequest.of(offset, pageSize));
+		List<EmployeeDto> dtoList = pageOfEmployees.getContent().stream()
+				.map(employee -> mapper.map(employee, EmployeeDto.class)).collect(Collectors.toList());
+		return dtoList;
+	}
+	
+	
 }
