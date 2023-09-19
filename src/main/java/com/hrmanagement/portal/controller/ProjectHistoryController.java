@@ -24,11 +24,7 @@ public class ProjectHistoryController {
 	@Autowired
 	private ProjectHistoryService projectHistoryService;
 
-	@GetMapping
-	public ResponseEntity<ApiResponse<List<ProjectHistoryDto>>> ProjectHistory() {
-		List<ProjectHistoryDto> createdProjectHistoryDto = projectHistoryService.getAllProjectsHistory();
-		return ResponseEntity.ok(new ApiResponse<>(createdProjectHistoryDto , null));
-	}
+	
 
 	@GetMapping("/{id}")
 	public ResponseEntity<ApiResponse<List<ProjectDetailsDto>>> getProjectHistoryByEmployeeId(
@@ -37,9 +33,5 @@ public class ProjectHistoryController {
 		return ResponseEntity.ok(new ApiResponse<>(projectHistory, null));
 	}
 
-	@PostMapping
-	public ResponseEntity<ApiResponse<List<ProjectHistoryDto>>> createProjectHistory(@RequestBody ProjectHistoryDto projectHistoryDto) {
-		List<ProjectHistoryDto> createdProjectHistory = projectHistoryService.createProjectHistory(projectHistoryDto);
-		return ResponseEntity.ok(new ApiResponse<>(createdProjectHistory , null));
-	}
+	
 }

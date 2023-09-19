@@ -12,7 +12,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
 import com.hrmanagement.portal.customexception.ResourceNotFoundException;
 import com.hrmanagement.portal.dto.DepartmentRequestDto;
 import com.hrmanagement.portal.model.Department;
@@ -20,18 +19,32 @@ import com.hrmanagement.portal.repository.DepartmentRepo;
 
 @Service
 public class DepartmentService {
-
+	
+	private final DepartmentRepo deptRepo;
+	private final ModelMapper mapper;
+	
 	@Autowired
-	private DepartmentRepo deptRepo;
+	public DepartmentService(DepartmentRepo deptRepo,  ModelMapper mapper)
+	{
+		this.deptRepo = deptRepo;
+		this.mapper = mapper;
+	}
 
-	@Autowired
-	private ModelMapper mapper;
+	public DepartmentRequestDto entityToDtoConverter(Department department) {
+		return mapper.map(department, DepartmentRequestDto.class);
+	}
+
+	public Department dtoToEntityConverter(DepartmentRequestDto departmentDto) {
+		return mapper.map(departmentDto, Department.class);
+	}
 
 	// 1.All Departments
-	public List<DepartmentRequestDto> getAllDepartments() {
+	public List<Department> getAllDepartments() {
 		List<Department> departmentEntities = deptRepo.findAll();
-		return departmentEntities.stream().map(department -> mapper.map(department, DepartmentRequestDto.class))
-				.collect(Collectors.toList());
+//		List<DepartmentRequestDto> departmentDtoList = departmentEntities.stream().map(this::entityToDtoConverter)
+//				.collect(Collectors.toList());
+	//	return departmentDtoList;
+		return departmentEntities;
 	}
 
 	// 2.Get Department by id
@@ -39,8 +52,8 @@ public class DepartmentService {
 		Optional<Department> optionalDepartment = deptRepo.findById(id);
 		if (optionalDepartment.isPresent()) {
 			Department department = optionalDepartment.get();
-			DepartmentRequestDto dto = mapper.map(department, DepartmentRequestDto.class);
-			return dto;
+			DepartmentRequestDto departmentDto = entityToDtoConverter(department);
+			return departmentDto;
 		} else {
 			throw new ResourceNotFoundException("Department not found with ID: " + id);
 		}
@@ -48,9 +61,13 @@ public class DepartmentService {
 
 	// 3.Creating new department record
 	public DepartmentRequestDto createDepartment(DepartmentRequestDto createRequest) {
+		
 		Department department = mapper.map(createRequest, Department.class);
+		
 		Department savedDepartment = deptRepo.save(department);
+		
 		DepartmentRequestDto savedDto = mapper.map(savedDepartment, DepartmentRequestDto.class);
+		
 		return savedDto;
 	}
 

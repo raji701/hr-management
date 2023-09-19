@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import com.hrmanagement.portal.customenumconverter.BloodGroupEnumToIntegerConverter;
 import com.hrmanagement.portal.customenumconverter.GenderEnumToIntegerConverter;
 import com.hrmanagement.portal.customenumconverter.MaritalStatusEnumToIntegerConverter;
-import com.hrmanagement.portal.customenumconverter.PositionNameEnumToIntegerConverter;
+import com.hrmanagement.portal.customenumconverter.ProjectStatusEnumToIntegerConverter;
 import com.hrmanagement.portal.customenumconverter.StatusEnumToIntegerConverter;
 
 @Configuration
@@ -21,6 +21,9 @@ public class ModelMapperConfig {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
         // Register custom converters
+        
+        modelMapper.addConverter(new ProjectStatusEnumToIntegerConverter());
+        
         modelMapper.addConverter(new StatusEnumToIntegerConverter());
         
         modelMapper.addConverter(new BloodGroupEnumToIntegerConverter());
@@ -29,7 +32,7 @@ public class ModelMapperConfig {
         
         modelMapper.addConverter(new MaritalStatusEnumToIntegerConverter());
         
-        modelMapper.addConverter(new PositionNameEnumToIntegerConverter());
+        
         
         return modelMapper;
     }

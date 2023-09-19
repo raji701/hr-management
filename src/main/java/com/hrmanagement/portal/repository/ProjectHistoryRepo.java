@@ -14,4 +14,8 @@ public interface ProjectHistoryRepo extends JpaRepository<ProjectHistory,Project
 
 	@Query("SELECT p.projectDetails FROM ProjectHistory p JOIN p.employee e WHERE e.employeeId = :id ")
 	public List<ProjectDetails> ProjectHistoryByEmployeeId(@Param("id") int id);
+	
+	
+	
+	
 	}

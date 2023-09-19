@@ -12,11 +12,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.hrmanagement.portal.customexception.InvalidInputException;
 import com.hrmanagement.portal.customexception.ResourceNotFoundException;
 import com.hrmanagement.portal.dto.BankDetailsDto;
-import com.hrmanagement.portal.dto.EducationDetailsDto;
 import com.hrmanagement.portal.model.BankDetails;
-import com.hrmanagement.portal.model.EducationDetails;
 import com.hrmanagement.portal.model.Employee;
 import com.hrmanagement.portal.repository.BankDetailsRepo;
 import com.hrmanagement.portal.repository.EmployeeRepo;
@@ -73,7 +72,9 @@ public class BankDetailsService {
 	// 3.Creating new BankDetails record
 	public BankDetailsDto createBankDetails(BankDetailsDto createRequest) {
 		Integer employeeId = createRequest.getEmployeeId();
-
+		if (employeeId == null || employeeId <= 0) {
+            throw new InvalidInputException("Invalid employeeId: " + employeeId);
+        }
 		Employee employee = employeeRepo.findById(employeeId)
 				.orElseThrow(() -> new ResourceNotFoundException("Employee not found with employeeId: " + employeeId));
 
@@ -81,12 +82,13 @@ public class BankDetailsService {
 			throw new DataIntegrityViolationException("The record already exists with id : " + employeeId);
 		} else {
 			BankDetails bankDetails = dtoToEntityConverter(createRequest);
-			  bankDetails.setEmployee(employee);
 			BankDetails savedBankDetails = bankDetailsRepo.save(bankDetails);
 			BankDetailsDto savedDto = entityToDtoConverter(savedBankDetails);
 			return savedDto;
 		}
 	}
+	
+	
 
 	// 4.Updating existed BankDetails By id
 	public BankDetailsDto updateDepartment(Integer employeeId, BankDetailsDto updatedBankDetails) {
@@ -127,4 +129,6 @@ public class BankDetailsService {
 				.collect(Collectors.toList());
 		return dtoList;
 	}
+	
+
 }

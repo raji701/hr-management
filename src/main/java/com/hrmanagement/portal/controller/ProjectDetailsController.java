@@ -1,7 +1,8 @@
 package com.hrmanagement.portal.controller;
 
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hrmanagement.portal.ResponseDto.ApiResponse;
 import com.hrmanagement.portal.dto.ProjectDetailsDto;
-import com.hrmanagement.portal.model.ProjectDetails;
+import com.hrmanagement.portal.model.ProjectDetails.ProjectStatus;
 import com.hrmanagement.portal.service.ProjectDetailsService;
 
 @RestController
@@ -33,7 +34,7 @@ public class ProjectDetailsController {
 
 	    @GetMapping("/{projectId}")
 	    public ResponseEntity<ApiResponse<ProjectDetailsDto>> getProjectDetailsById(@PathVariable Integer projectId) {
-	        ProjectDetailsDto projectDetailsDto = projectDetailsService.getProjectDetailsById(projectId);
+	        ProjectDetailsDto projectDetailsDto = projectDetailsService.getProjectDetailsByProjectId(projectId);
 	        return ResponseEntity.ok(new ApiResponse<>(projectDetailsDto,null));
 	    }
 
@@ -49,4 +50,13 @@ public class ProjectDetailsController {
 	        ProjectDetailsDto projectDetailsDto = projectDetailsService.updateProjectDetails(projectId, updatedProjectDetailsDto);
 	        return ResponseEntity.ok(new ApiResponse<>(projectDetailsDto,null));
 	    }
+	    
+	    @GetMapping("/bystatus/{status}")
+		public ResponseEntity<ApiResponse<List<ProjectDetailsDto>>> employeesOfGender(@PathVariable String status) {
+			ProjectStatus projectStatusEnum = ProjectStatus.valueOf(status.toUpperCase());
+			List<ProjectDetailsDto> projectDetailsDtoList = projectDetailsService.projectsByStatus(projectStatusEnum);
+			Map<String, Object> meta = new LinkedHashMap<>();
+			meta.put("employeeCount", projectDetailsDtoList.size());
+			return ResponseEntity.ok(new ApiResponse<>(projectDetailsDtoList, meta));
+		}
 }

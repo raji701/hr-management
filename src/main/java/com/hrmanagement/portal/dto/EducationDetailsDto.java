@@ -9,8 +9,27 @@ public class EducationDetailsDto {
     private String specialization;
     private Integer yearOfPassing;
     private Float cgpa;
+    
+    
 
-    public Integer getEmployeeId() {
+    public EducationDetailsDto(Integer employeeId, String institute, String university, String degree,
+			String specialization, Integer yearOfPassing, Float cgpa) {
+		super();
+		this.employeeId = employeeId;
+		this.institute = institute;
+		this.university = university;
+		this.degree = degree;
+		this.specialization = specialization;
+		this.yearOfPassing = yearOfPassing;
+		this.cgpa = cgpa;
+	}
+
+	public EducationDetailsDto() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Integer getEmployeeId() {
         return employeeId;
     }
 

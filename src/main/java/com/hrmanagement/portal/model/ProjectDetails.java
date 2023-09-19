@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -15,6 +17,14 @@ import jakarta.persistence.Table;
 @Table(name = "project_details")
 public class ProjectDetails {
 
+	public enum ProjectStatus {
+		CANCELED,
+	    COMPLETED,
+	    INPROGRESS,
+	    ONHOLD,
+	    
+	}
+	
 	@Id
 	@Column(name = "project_id")
 	private Integer projectId;
@@ -33,6 +43,10 @@ public class ProjectDetails {
 
 	@Column(name = "created_by")
 	private int createdBy;
+	
+	@Enumerated(EnumType.ORDINAL)
+	@Column(name="status")
+	private ProjectStatus status;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy= "projectDetails")
@@ -114,6 +128,14 @@ public class ProjectDetails {
 
 	public void setProjectHistoryList(List<ProjectHistory> projectHistoryList) {
 		this.projectHistoryList = projectHistoryList;
+	}
+
+	public ProjectStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(ProjectStatus status) {
+		this.status = status;
 	}
 	
 	

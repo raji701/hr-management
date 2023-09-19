@@ -15,10 +15,12 @@ public class EmployeeDto {
     private int departmentId;
     private String employmentType;
     private LocalDate dateOfJoining;
+    private Integer positionId;
+    private Integer reportingTo;
     
     
 	public EmployeeDto(Integer employeeId, String userId, String firstName, String lastName, String email, String phone,
-			String employeeAddress, Double salary, int departmentId, String employmentType, LocalDate dateOfJoining) {
+			String employeeAddress, Double salary, int departmentId, String employmentType, LocalDate dateOfJoining,Integer positionId,Integer reportingTo) {
 		super();
 		this.employeeId = employeeId;
 		this.userId = userId;
@@ -31,7 +33,23 @@ public class EmployeeDto {
 		this.departmentId = departmentId;
 		this.employmentType = employmentType;
 		this.dateOfJoining = dateOfJoining;
+		this.positionId = positionId;
+		this.reportingTo = reportingTo;
 	}
+	
+
+	
+
+
+
+	public EmployeeDto(Integer employeeId) {
+		super();
+		this.employeeId = employeeId;
+	}
+
+
+
+
 
 
 	public EmployeeDto() {
@@ -147,6 +165,42 @@ public class EmployeeDto {
 
 	public void setDateOfJoining(LocalDate dateOfJoining) {
 		this.dateOfJoining = dateOfJoining;
+	}
+
+
+
+
+
+
+	public Integer getPositionId() {
+		return positionId;
+	}
+
+
+
+
+
+
+	public void setPositionId(Integer positionId) {
+		this.positionId = positionId;
+	}
+
+
+
+
+
+
+	public Integer getReportingTo() {
+		return reportingTo;
+	}
+
+
+
+
+
+
+	public void setReportingTo(Integer reportingTo) {
+		this.reportingTo = reportingTo;
 	}
     
 	

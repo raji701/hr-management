@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
+
 import com.hrmanagement.portal.ResponseDto.ApiResponse;
 import com.hrmanagement.portal.dto.DepartmentRequestDto;
+import com.hrmanagement.portal.model.Department;
 import com.hrmanagement.portal.service.DepartmentService;
 
 @RestController
@@ -31,9 +33,9 @@ public class DepartmentController {
 	 * @return
 	 */
 	@GetMapping
-	public ResponseEntity<ApiResponse<List<DepartmentRequestDto>>> Get() {
+	public ResponseEntity<ApiResponse<List<Department>>> Get() {
 
-		List<DepartmentRequestDto> departmentDto = departmentService.getAllDepartments();
+		List<Department> departmentDto = departmentService.getAllDepartments();
 		return ResponseEntity.ok(new ApiResponse<>(departmentDto, null));
 	}
 

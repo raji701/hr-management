@@ -1,4 +1,4 @@
-package com.hrmanagement.portal.model;
+ package com.hrmanagement.portal.model;
 
 import java.time.LocalDateTime;
 

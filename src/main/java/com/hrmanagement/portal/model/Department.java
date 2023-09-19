@@ -26,13 +26,13 @@ public class Department {
 	private LocalDateTime createdAt;
 
 	@Column(name = "created_by")
-	private int createdBy;
+	private Integer createdBy;
 
 	@Column(name = "modified_at")
 	private LocalDateTime modifiedAt;
 	
 	@Column(name="modified_by")
-	private int modifiedBy;
+	private Integer modifiedBy;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "department")
@@ -62,11 +62,11 @@ public class Department {
 		this.createdAt = createdAt;
 	}
 
-	public int getCreatedBy() {
+	public Integer getCreatedBy() {
 		return createdBy;
 	}
 
-	public void setCreatedBy(int createdBy) {
+	public void setCreatedBy(Integer createdBy) {
 		this.createdBy = createdBy;
 	}
 
@@ -78,11 +78,11 @@ public class Department {
 		this.modifiedAt = modifiedAt;
 	}
 
-	public int getModifiedBy() {
+	public Integer getModifiedBy() {
 		return modifiedBy;
 	}
 
-	public void setModifiedBy(int modifiedBy) {
+	public void setModifiedBy(Integer modifiedBy) {
 		this.modifiedBy = modifiedBy;
 	}
 
@@ -94,5 +94,6 @@ public class Department {
 		this.employees = employees;
 	}
 
+	
 	
 }

@@ -1,6 +1,6 @@
 package com.hrmanagement.portal.service;
 
-import java.time.LocalDateTime;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,7 +12,6 @@ import com.hrmanagement.portal.dto.ProjectDetailsDto;
 import com.hrmanagement.portal.dto.ProjectHistoryDto;
 import com.hrmanagement.portal.model.ProjectDetails;
 import com.hrmanagement.portal.model.ProjectHistory;
-import com.hrmanagement.portal.model.ProjectHistoryId;
 import com.hrmanagement.portal.repository.ProjectHistoryRepo;
 
 @Service
@@ -36,12 +35,7 @@ public class ProjectHistoryService {
 	}
 	
 	
-	public List<ProjectHistoryDto> getAllProjectsHistory()
-	{
-		List<ProjectHistory>  projectHistoryList = projectHistoryRepo.findAll();
-		List<ProjectHistoryDto> projectHistoryDtoList = projectHistoryList.stream().map(this::entityToDtoConverter).toList();
-		return projectHistoryDtoList;
-	}
+	
 
 	public List<ProjectDetailsDto> projectHistoryOfAnEmployee(Integer id)
 	{
@@ -55,14 +49,7 @@ public class ProjectHistoryService {
 	
 
 
-    public List<ProjectHistoryDto> createProjectHistory(ProjectHistoryDto projectHistoryDto) {
-    	
-        ProjectHistory projectHistoryList = dtoToEntityConverter(projectHistoryDto);
-        projectHistoryRepo.save(projectHistoryList);
-        
-        return getAllProjectsHistory();
-        
-    }
+  
 
    
 }

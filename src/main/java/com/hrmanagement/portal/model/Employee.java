@@ -68,13 +68,24 @@ public class Employee {
 	private LocalDateTime createdAt;
 
 	@Column(name = "created_by")
-	private int createdBy;
+	private Integer createdBy;
 
 	@Column(name = "modified_at")
 	private LocalDateTime modifiedAt;
 	
 	@Column(name="modified_by")
-	private int modifiedBy;
+	private Integer modifiedBy;
+	
+	@Column(name="reporting_to")
+	private Integer reportingTo;
+	
+	@Column(name="position_id")
+	private Integer positionId;
+	
+	@JsonIgnore
+	@OneToOne
+	@JoinColumn(name ="position_id",insertable=false,updatable=false)
+	private Position position;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "employee")
@@ -93,9 +104,6 @@ public class Employee {
 	@OneToOne(mappedBy = "employee")
 	private PersonalDetails personalDetails;
 
-	@JsonIgnore
-	@OneToOne(mappedBy = "employee")
-	private Position position;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "employee")
@@ -117,6 +125,21 @@ public class Employee {
 		this.employeeId = employeeId;
 	}
 
+	public User getRefUserId() {
+		return refUserId;
+	}
+
+	public void setRefUserId(User refUserId) {
+		this.refUserId = refUserId;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
 	public String getFirstName() {
 		return firstName;
@@ -174,6 +197,14 @@ public class Employee {
 		this.department = department;
 	}
 
+	public int getDepartmentId() {
+		return departmentId;
+	}
+
+	public void setDepartmentId(int departmentId) {
+		this.departmentId = departmentId;
+	}
+
 	public String getEmploymentType() {
 		return employmentType;
 	}
@@ -198,11 +229,11 @@ public class Employee {
 		this.createdAt = createdAt;
 	}
 
-	public int getCreatedBy() {
+	public Integer getCreatedBy() {
 		return createdBy;
 	}
 
-	public void setCreatedBy(int createdBy) {
+	public void setCreatedBy(Integer createdBy) {
 		this.createdBy = createdBy;
 	}
 
@@ -214,12 +245,36 @@ public class Employee {
 		this.modifiedAt = modifiedAt;
 	}
 
-	public int getModifiedBy() {
+	public Integer getModifiedBy() {
 		return modifiedBy;
 	}
 
-	public void setModifiedBy(int modifiedBy) {
+	public void setModifiedBy(Integer modifiedBy) {
 		this.modifiedBy = modifiedBy;
+	}
+
+	public Integer getReportingTo() {
+		return reportingTo;
+	}
+
+	public void setReportingTo(Integer reportingTo) {
+		this.reportingTo = reportingTo;
+	}
+
+	public Integer getPositionId() {
+		return positionId;
+	}
+
+	public void setPositionId(Integer positionId) {
+		this.positionId = positionId;
+	}
+
+	public Position getPosition() {
+		return position;
+	}
+
+	public void setPosition(Position position) {
+		this.position = position;
 	}
 
 	public List<EmploySkills> getEmployeeSkillsList() {
@@ -254,14 +309,6 @@ public class Employee {
 		this.personalDetails = personalDetails;
 	}
 
-	public Position getPosition() {
-		return position;
-	}
-
-	public void setPosition(Position position) {
-		this.position = position;
-	}
-
 	public List<ProjectHistory> getProjectHistoryList() {
 		return projectHistoryList;
 	}
@@ -286,32 +333,7 @@ public class Employee {
 		this.employeeRolesList = employeeRolesList;
 	}
 
-
-	public User getRefUserId() {
-		return refUserId;
-	}
-
-	public void setRefUserId(User refUserId) {
-		this.refUserId = refUserId;
-	}
-
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-
-	public int getDepartmentId() {
-		return departmentId;
-	}
-
-	public void setDepartmentId(int departmentId) {
-		this.departmentId = departmentId;
-	}
-
-	 
+	
 
 	
 

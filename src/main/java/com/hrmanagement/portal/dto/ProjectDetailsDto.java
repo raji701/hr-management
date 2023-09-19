@@ -8,17 +8,18 @@ public class ProjectDetailsDto {
     private String projectName;
     private LocalDateTime projectCreatedAt;
     private LocalDateTime projectCompletedAt;
-
+    private Integer status;
     // Constructors, getters, and setters
 
     public ProjectDetailsDto() {
     }
 
-    public ProjectDetailsDto(Integer projectId, String projectName, LocalDateTime projectCreatedAt, LocalDateTime projectCompletedAt) {
+    public ProjectDetailsDto(Integer projectId, String projectName, LocalDateTime projectCreatedAt, LocalDateTime projectCompletedAt, Integer status) {
         this.projectId = projectId;
         this.projectName = projectName;
         this.projectCreatedAt = projectCreatedAt;
         this.projectCompletedAt = projectCompletedAt;
+        this.status = status;
     }
 
     public Integer getProjectId() {
