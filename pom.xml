@@ -71,18 +71,32 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>-->
 
-		<!-- api-validation -->
+		<!-- api-validation 
 		<dependency>
 			<groupId>javax.validation</groupId>
-			<artifactId>validation-api</artifactId>
+		<artifactId>validation-api</artifactId>
 			<version>2.0.1.Final</version>
-		</dependency>
+		</dependency>-->
 
-		<!-- Hibernate validator-->
+		<!-- Hibernate validator
 		<dependency>
 			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<version>8.0.1.Final</version>
+		<artifactId>hibernate-validator</artifactId>
+		<version>8.0.1.Final</version>
+		</dependency> -->
+
+		<!--ExcelFile uploader-->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>4.1.2</version>
+		</dependency>
+
+		<!-- csv file uploader-->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-csv</artifactId>
+			<version>1.8</version> <!-- Use the latest version available -->
 		</dependency>
 
 

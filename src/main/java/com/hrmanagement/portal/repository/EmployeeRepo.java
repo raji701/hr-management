@@ -24,4 +24,10 @@ public interface EmployeeRepo extends JpaRepository<Employee,Integer> {
 	
 	@Query("SELECT e FROM Employee e JOIN e.personalDetails pd where pd.gender = :gender")
 	List<Employee> findAllByGender(@Param ("gender") Gender gender );
+	
+	@Query("SELECT e.positionId from Employee e where e.employeeId = :employeeId")
+	Integer positionOfTheEmployee(@Param("employeeId") Integer employeeId);
+	
+	@Query("SELECT e from Employee e where e.positionId = 8")
+	List<Employee> employeesUnderManager();
 }

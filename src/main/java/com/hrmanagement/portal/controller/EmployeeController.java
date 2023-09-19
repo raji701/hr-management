@@ -1,20 +1,23 @@
 package com.hrmanagement.portal.controller;
 
+import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.hrmanagement.portal.ResponseDto.ApiResponse;
+import com.hrmanagement.portal.customexception.InvalidInputException;
 import com.hrmanagement.portal.dto.BankDetailsDto;
 import com.hrmanagement.portal.dto.EmployeeDto;
 import com.hrmanagement.portal.model.PersonalDetails.Gender;
@@ -39,6 +42,17 @@ public class EmployeeController {
 		return ResponseEntity.ok(new ApiResponse<>(employeeDtoList, null));
 	}
 
+	@GetMapping("/emp/{id}")
+	public ResponseEntity<ApiResponse<EmployeeDto>> getByEmployeeId(@PathVariable("id") Integer employeeId){
+		if(employeeId == null || employeeId < 0)
+		{
+			throw new InvalidInputException("the provided id is invalid");
+		}
+		EmployeeDto employeeDto = employeeService.getEmployeeByEmployeeId(employeeId);
+		return ResponseEntity.ok(new ApiResponse<>(employeeDto, null));
+		}
+	
+	
 	/**
 	 * 2.Creating New Employee Details
 	 * 
@@ -54,7 +68,39 @@ public class EmployeeController {
 
 		
 	}
-
+// 
+//	
+////	  @PostMapping("/upload-employee-data")
+////	    public ResponseEntity<?> uploadCustomersData(@RequestParam("file")MultipartFile file){
+////	        employeeService.saveEmployeeToDataBase(file);
+////	        return ResponseEntity
+////	                .ok(Map.of("Message" , "Employyee data uploaded and saved to database successfully"));
+////	    }
+////	
+	
+	
+	 @PostMapping("/upload-employee-data")
+	    public ResponseEntity<?> uploadEmployeeData(@RequestParam("file") MultipartFile file) {
+	        try {
+	        	employeeService.processCSVFile(file);
+	            return ResponseEntity.ok("Employee data uploaded and saved to the database successfully");
+	        } catch (IOException e) {
+	            return ResponseEntity.badRequest().body("Failed to process the CSV file: " + e.getMessage());
+	        } catch (IllegalArgumentException e) {
+	            return ResponseEntity.badRequest().body(e.getMessage());
+	        }
+	    }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * 3.Getting All Employee Details In A Specific Department
 	 * 

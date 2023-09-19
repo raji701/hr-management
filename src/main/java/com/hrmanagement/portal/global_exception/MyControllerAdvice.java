@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.hrmanagement.portal.ResponseDto.ApiErrorResponse;
+import com.hrmanagement.portal.customexception.ForbiddenException;
 import com.hrmanagement.portal.customexception.InvalidInputException;
 import com.hrmanagement.portal.customexception.InvalidPasswordException;
 import com.hrmanagement.portal.customexception.ResourceNotFoundException;
@@ -52,5 +53,11 @@ public class MyControllerAdvice {
 	public ResponseEntity<ApiErrorResponse> handleDataIntegrityViolationException(DataIntegrityViolationException ex){
 		ApiErrorResponse errorResponse = new ApiErrorResponse(409, ex.getMessage());
 		return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
+	}
+	
+	@ExceptionHandler(ForbiddenException.class)
+	public ResponseEntity<ApiErrorResponse> handleForbiddenException(ForbiddenException ex){
+		ApiErrorResponse errorResponse = new ApiErrorResponse(403, ex.getMessage());
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorResponse);
 	}
 }

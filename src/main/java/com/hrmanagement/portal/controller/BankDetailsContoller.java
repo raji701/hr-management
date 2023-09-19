@@ -48,13 +48,17 @@ public class BankDetailsContoller {
 	 * @param id
 	 * @return
 	 */
-	@GetMapping("/{id}")
+	@GetMapping("/emp/{id}")
 	public ResponseEntity<ApiResponse<BankDetailsDto>> getBankDetailsByEmployeeId(@PathVariable("id") Integer employeeId){
-		
+		if(employeeId == null || employeeId < 0)
+		{
+			throw new InvalidInputException("the provided id is invalid");
+		}
 		BankDetailsDto departmentDto = bankDetailsService.getBankDetailsById(employeeId);
 		return ResponseEntity.ok(new ApiResponse<>(departmentDto, null));
+		}
 		
-	}
+	
 
 	/**
 	 * 3.Creating new BankDetails Record
@@ -62,12 +66,14 @@ public class BankDetailsContoller {
 	 * @param postRequest
 	 * @return
 	 */
-	@PostMapping
+  	@PostMapping
 	public ResponseEntity<ApiResponse<BankDetailsDto>> postBankDetails(
-			@RequestBody BankDetailsDto postRequest) {
+			@RequestBody BankDetailsDto postRequest ) {
 		BankDetailsDto bankDetailsDto = bankDetailsService.createBankDetails(postRequest);
 		return ResponseEntity.ok(new ApiResponse<>(bankDetailsDto, null));
 	}
+	
+
 
 	/**
 	 * 4. existing Bank Details Updation

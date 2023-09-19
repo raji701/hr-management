@@ -1,36 +1,29 @@
 package com.hrmanagement.portal.dto;
 
 public class PositionDto {
-
-	private Integer employeeId;
-
-	private Integer positionName;
-
-	public PositionDto(Integer employeeId, Integer positionName) {
-		super();
-		this.employeeId = employeeId;
-		this.positionName = positionName;
-	}
+	
+	private String positionName;
 
 	public PositionDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Integer getEmployeeId() {
-		return employeeId;
+	public PositionDto(String positionName) {
+		super();
+		this.positionName = positionName;
 	}
 
-	public void setEmployeeId(Integer employeeId) {
-		this.employeeId = employeeId;
-	}
-
-	public Integer getPositionName() {
+	public String getPositionName() {
 		return positionName;
 	}
 
-	public void setPositionName(Integer positionName) {
+	public void setPositionName(String positionName) {
 		this.positionName = positionName;
 	}
+	
+	
+
+	
 
 }

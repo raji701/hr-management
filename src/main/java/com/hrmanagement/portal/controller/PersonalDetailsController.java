@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hrmanagement.portal.ResponseDto.ApiResponse;
@@ -15,6 +16,7 @@ import com.hrmanagement.portal.dto.PersonalDetailsDto;
 import com.hrmanagement.portal.service.PersonalDetailsService;
 
 @RestController
+@RequestMapping("/personaldetails")
 public class PersonalDetailsController {
 
 	@Autowired
@@ -22,7 +24,7 @@ public class PersonalDetailsController {
 
 	// 1. employees personal details list
 
-	@GetMapping("/personaldetails")
+	@GetMapping
 	public ResponseEntity<ApiResponse<List<PersonalDetailsDto>>> personalDetails() {
 		List<PersonalDetailsDto> personalDetailsDto = personalDetailsService.getPersonalDetailsOfAllEmployees();
 		return ResponseEntity.ok(new ApiResponse<>(personalDetailsDto, null));

@@ -6,9 +6,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -17,13 +18,15 @@ import jakarta.persistence.Table;
 public class BankDetails {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+
 	@Column(name = "employee_id")
 	private Integer employeeId;
 
-	@OneToOne
-	@MapsId
 	@JsonIgnore
-	@JoinColumn(name = "employee_id")
+	@OneToOne
+	@JoinColumn(name = "employee_id", insertable = false, updatable = false)
 	private Employee employee;
 
 	@Column(name = "account_number", length = 36, unique = true)
@@ -48,13 +51,21 @@ public class BankDetails {
 	private LocalDateTime createdAt;
 
 	@Column(name = "created_by")
-	private int createdBy;
+	private Integer createdBy;
 
 	@Column(name = "modified_at")
 	private LocalDateTime modifiedAt;
-	
-	@Column(name="modified_by")
-	private int modifiedBy;
+
+	@Column(name = "modified_by")
+	private Integer modifiedBy;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public Integer getEmployeeId() {
 		return employeeId;
@@ -128,11 +139,11 @@ public class BankDetails {
 		this.createdAt = createdAt;
 	}
 
-	public int getCreatedBy() {
+	public Integer getCreatedBy() {
 		return createdBy;
 	}
 
-	public void setCreatedBy(int createdBy) {
+	public void setCreatedBy(Integer createdBy) {
 		this.createdBy = createdBy;
 	}
 
@@ -144,13 +155,13 @@ public class BankDetails {
 		this.modifiedAt = modifiedAt;
 	}
 
-	public int getModifiedBy() {
+	public Integer getModifiedBy() {
 		return modifiedBy;
 	}
 
-	public void setModifiedBy(int modifiedBy) {
+	public void setModifiedBy(Integer modifiedBy) {
 		this.modifiedBy = modifiedBy;
 	}
 
-	
+	 
 }

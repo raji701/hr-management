@@ -6,4 +6,5 @@ import com.hrmanagement.portal.model.BankDetails;
 
 public interface BankDetailsRepo extends JpaRepository<BankDetails,Integer>{
 
+	  boolean existsByEmployeeId(Integer employeeId);
 }
