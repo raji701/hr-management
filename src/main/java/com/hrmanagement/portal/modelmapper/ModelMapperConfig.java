@@ -8,7 +8,11 @@ import org.springframework.context.annotation.Configuration;
 import com.hrmanagement.portal.customenumconverter.BloodGroupEnumToIntegerConverter;
 import com.hrmanagement.portal.customenumconverter.GenderEnumToIntegerConverter;
 import com.hrmanagement.portal.customenumconverter.MaritalStatusEnumToIntegerConverter;
+<<<<<<< HEAD
 import com.hrmanagement.portal.customenumconverter.ProjectStatusEnumToIntegerConverter;
+=======
+
+>>>>>>> abbe14ff11cf9c3feb8937e9cc5d3c05104a3279
 import com.hrmanagement.portal.customenumconverter.StatusEnumToIntegerConverter;
 
 @Configuration

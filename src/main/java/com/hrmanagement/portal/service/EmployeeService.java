@@ -29,6 +29,7 @@ import com.hrmanagement.portal.repository.SkillsRepo;
 @Service
 public class EmployeeService {
 
+<<<<<<< HEAD
 	private final EmployeeRepo employeeRepo;
 
 	private final ModelMapper mapper;
@@ -37,11 +38,25 @@ public class EmployeeService {
 
 	private final SkillsRepo skillsRepo;
 
+=======
+	 private final EmployeeRepo employeeRepo;
+
+	 private final ModelMapper mapper;
+
+	 private final DepartmentRepo departmentRepo;
+
+	 private final SkillsRepo skillsRepo;
+	
+>>>>>>> abbe14ff11cf9c3feb8937e9cc5d3c05104a3279
 	private final PositionRepo positionRepo;
 
 	@Autowired
 	public EmployeeService(EmployeeRepo employeeRepo, ModelMapper mapper, DepartmentRepo departmentRepo,
+<<<<<<< HEAD
 			SkillsRepo skillsRepo, PositionRepo positionRepo) {
+=======
+			SkillsRepo skillsRepo ,PositionRepo positionRepo) {
+>>>>>>> abbe14ff11cf9c3feb8937e9cc5d3c05104a3279
 		this.employeeRepo = employeeRepo;
 		this.mapper = mapper;
 		this.departmentRepo = departmentRepo;
@@ -192,4 +207,22 @@ public class EmployeeService {
 		return dtoList;
 	}
 
+<<<<<<< HEAD
+=======
+	//9. Employees Under manager
+	public List<EmployeeDto> EmployeesUnderManager(Integer employeeId){
+		
+		   employeeRepo.findById(employeeId).orElseThrow(()-> new ResourceNotFoundException(" the employee with this id : "+ employeeId +" isn't present"));
+		   Integer positionId = employeeRepo.positionOfTheEmployee(employeeId);
+		   if(positionId == 8) {
+			   
+			   List<Employee> employeeList = employeeRepo.employeesUnderManager();
+			   List<EmployeeDto> employeeDtoList = employeeList.stream().map(employeeDto -> mapper.map(employeeDto, EmployeeDto.class)).toList();
+			   return employeeDtoList;
+		   }
+		   else {
+			   throw new ForbiddenException("You do not have permission to access this resource or perform this operation.");
+		   }
+	}
+>>>>>>> abbe14ff11cf9c3feb8937e9cc5d3c05104a3279
 }

@@ -28,9 +28,14 @@ public interface EmployeeRepo extends JpaRepository<Employee,Integer> {
 	@Query("SELECT e.positionId from Employee e where e.employeeId = :employeeId")
 	Integer positionOfTheEmployee(@Param("employeeId") Integer employeeId);
 	
+<<<<<<< HEAD
 	@Query("SELECT e from Employee e where e.reportingTo = :employeeId")
 	List<Employee> employeesUnder(@Param("employeeId") Integer employeeId);
 	
 	@Query("SELECT e from Employee e where e.positionId = :positionId and e.departmentId = :departmentId")
 	List<Employee> employeesWithPosition(@Param("positionId") Integer positionId , @Param("departmentId") Integer departmentId );
+=======
+	@Query("SELECT e from Employee e where e.positionId = 8")
+	List<Employee> employeesUnderManager();
+>>>>>>> abbe14ff11cf9c3feb8937e9cc5d3c05104a3279
 }
